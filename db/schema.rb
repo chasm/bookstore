@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130415123400) do
+ActiveRecord::Schema.define(:version => 20130416101434) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -21,16 +21,33 @@ ActiveRecord::Schema.define(:version => 20130415123400) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "book_genres", :force => true do |t|
+    t.boolean  "disputed",   :default => false
+    t.integer  "book_id"
+    t.integer  "genre_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "book_genres", ["book_id", "genre_id"], :name => "index_book_genres_on_book_id_and_genre_id", :unique => true
+  add_index "book_genres", ["book_id"], :name => "index_book_genres_on_book_id"
+  add_index "book_genres", ["genre_id"], :name => "index_book_genres_on_genre_id"
+
   create_table "books", :force => true do |t|
     t.string   "title"
     t.string   "isbn"
     t.string   "image_url"
-    t.string   "genre"
     t.integer  "author_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   add_index "books", ["author_id"], :name => "index_books_on_author_id"
+
+  create_table "genres", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

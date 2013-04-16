@@ -4,7 +4,6 @@ class CreateBooks < ActiveRecord::Migration
       t.string :title
       t.string :isbn
       t.string :image_url
-      t.string :genre
       t.references :author
 
       t.timestamps
